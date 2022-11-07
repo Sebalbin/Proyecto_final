@@ -1,0 +1,81 @@
+html, body {
+    height: 100%;
+    width: 100%;
+    margin: 1px solid #000;
+    background: rgb(66, 65, 64);
+  }
+
+
+
+.container,.row{
+	margin-top: 20px;
+}
+
+.col{
+	margin: 2%;
+	text-align:justify;
+}
+
+.col-md-3, .col-md-9{
+	margin-top:2%;
+}
+
+.btn-primary{
+	color: white;
+	background:green;
+	border: 0px;
+}
+.btn-primary:hover{
+	color: green;
+	background:white;
+}
+
+.Registro {
+  width: 300px;
+  background: green;
+  padding: 30px;
+  margin: auto;
+  margin-top: 50px;
+	margin-bottom: 100px;
+  border-radius: 20px;
+  font-family: 'calibri';
+  color: white;
+  box-shadow: 0px 0px 50px #000;
+}
+/* Recuadro de la pagina de registro*/ 
+.ingreso {
+  width: 300px;
+	height: 350px;
+  background:green;
+  padding: 30px;
+  margin: auto;
+  margin-top: 50px;
+	margin-bottom: 100px;
+  border-radius: 20px;
+  font-family: 'calibri';
+  color: white;
+  box-shadow: 0px 0px 50px #000;
+}
+
+.cuadros_reg {
+  width: 100%;
+  background: #ffffff;
+  padding: 10px;
+  border-radius: 4px;
+  margin-bottom: 16px;
+  border: 1px solid #1f53c5;
+  font-family: 'calibri';
+  font-size: 12px;
+  color: black;
+}
+
+#reg{
+	color: green;
+	background:white;
+	border: 1px solid white;
+} 
+#reg:hover{
+	color: white;
+	background:green;
+	border: 1px solid white;
+} 
