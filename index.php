@@ -1,3 +1,14 @@
+<?php
+  $file = fopen("sesion.txt", "r");
+  if ( fgets($file) == "1"){
+    $_SESSION['auten']=1;
+  }else{
+    $_SESSION['auten']=0;
+  }
+  fclose($file);
+?>
+
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -29,27 +40,160 @@
               <a class="nav-link active" aria-current="page" href="index.php">Inicio</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="contactanos.html">Contacto</a>
+                <a class="nav-link" href="contactanos.php">Contacto</a>
             </li>
             <li class="nav-item dropdown">
-              <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                 Actividad
-              </a>
-              <ul class="dropdown-menu">
-                <li><a class="dropdown-item" href="parapente.html">parapente</a></li>
-                <li><a class="dropdown-item" href="senderismo.html">senderismo</a></li>
-                <li><a class="dropdown-item" href="bungee.html">bungee</a></li>
+                </a>
+                <ul class="dropdown-menu">
+                <li><a class="dropdown-item" href="parapente.php">parapente</a></li>
+                <li><a class="dropdown-item" href="senderismo.php">senderismo</a></li>
+                <li><a class="dropdown-item" href="bungee.php">bungee</a></li>
                 <li><hr class="dropdown-divider"></li>
                 <li><a class="dropdown-item" href="#">Something else here</a></li>
-              </ul>
+                </ul>
             </li>
           </ul>
-          <a class="btn btn-primary" href="sesion.php" role="button">Inicio/Registro</a>
+          <?php
+              if ($_SESSION['auten'] == 1){  print("<a class='btn btn-primary' href='logout.php' role='button' style='background: rgb(211, 172, 14);'>Cerrar sesion</a>"); } 
+            else{  print("<a class='btn btn-primary' href='sesion.php' role='button' style='background: rgb(211, 172, 14);'>Inicio/Registro</a>"); }
+          ?>
         </div>
       </div>
     </nav>
+  </div>
 
-    <div class="Cuerpo" style="margin-left: 10%; margin-right: 10%;">
+  <div style="margin-left: 15%; margin-right: 15%; box-shadow: 0px 0px 150px rgb(211, 172, 14);">
+
+    <!-- carrusel de imagenes -->
+    <div id="carouselExampleCaptions" class="carousel slide" data-bs-ride="false" style="height: 300px;">
+      <div class="carousel-indicators">
+        <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+        <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="1" aria-label="Slide 2"></button>
+        <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="2" aria-label="Slide 3"></button>
+      </div>
+
+      <div class="carousel-inner">
+        <div class="carousel-item active">
+          <img src="https://www.trekkingchile.com/es/wp-content/uploads/sites/4/2021/02/senderismo-y-salud.jpg" class="d-block w-100" alt="senderismo" style="height: 300px;">
+          <div class="carousel-caption d-none d-md-block">
+            <h3 style="color: white;">Recorre hermosos caminos</h3>
+          </div>
+        </div>
+        <div class="carousel-item">
+          <img src="https://www.santanderalextremo.com/wp-content/uploads/2020/12/Parapente-en-la-Mesa-de-Ruitoque-2-min.jpg" class="d-block w-100" alt="..." style="height: 300px;">
+          <div class="carousel-caption d-none d-md-block">
+            <h3 style="color: white;">Enfrenta tus miedos.</h3>
+          </div>
+        </div>
+        <div class="carousel-item">
+          <img src="https://2.bp.blogspot.com/-VzrfJ8cuFL8/Vw1qsZWpidI/AAAAAAAABU0/wOAYojFVarsyVMoFpN_-IgN2BLjcWprPgCK4B/s1600/puenting3.jpg" class="d-block w-100" alt="..." style="height: 300px;">
+          <div class="carousel-caption d-none d-md-block">
+            <h3 style="color: white;">Lanzate a la aventura</h3>
+          </div>
+        </div>
+      </div>
+      <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide="prev">
+        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Previous</span>
+      </button>
+      <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide="next">
+        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Next</span>
+      </button>
+    </div>
+
+    <!-- Contenido de la pagina -->
+    <div style="margin-left: 10%; margin-right: 10%; margin-top: 50px;">
+      <h1 style="text-align: center;">SpeedTour</h1> <br>
+
+      <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur felis urna, posuere ut elit a, rutrum egestas lectus. Fusce eleifend erat at libero ornare dignissim. Curabitur posuere egestas pulvinar. Morbi egestas sem sapien, lobortis venenatis felis varius nec. Sed pellentesque scelerisque nisi, eu auctor lectus faucibus quis. In lectus sem, pretium vel lorem non, finibus commodo nisl. Morbi vitae ex ultricies, hendrerit leo ullamcorper, venenatis est. Donec eu ante commodo, lobortis nunc laoreet, aliquet libero. Pellentesque at viverra ligula. Vivamus gravida, enim molestie interdum sodales, est est venenatis nisi, eu hendrerit lorem eros non dui.</p>
+
+      <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur felis urna, posuere ut elit a, rutrum egestas lectus. Fusce eleifend erat at libero ornare dignissim. Curabitur posuere egestas pulvinar. Morbi egestas sem sapien, lobortis venenatis felis varius nec. Sed pellentesque scelerisque nisi, eu auctor lectus faucibus quis. In lectus sem, pretium vel lorem non, finibus commodo nisl. Morbi vitae ex ultricies, hendrerit leo ullamcorper, venenatis est. Donec eu ante commodo, lobortis nunc laoreet, aliquet libero. Pellentesque at viverra ligula. Vivamus gravida, enim molestie interdum sodales, est est venenatis nisi, eu hendrerit lorem eros non dui.</p>
+      <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur felis urna, posuere ut elit a, rutrum egestas lectus. Fusce eleifend erat at libero ornare dignissim. Curabitur posuere egestas pulvinar. Morbi egestas sem sapien, lobortis venenatis felis varius nec. Sed pellentesque scelerisque nisi, eu auctor lectus faucibus quis. In lectus sem, pretium vel lorem non, finibus commodo nisl. Morbi vitae ex ultricies, hendrerit leo ullamcorper, venenatis est. Donec eu ante commodo, lobortis nunc laoreet, aliquet libero. Pellentesque at viverra ligula. Vivamus gravida, enim molestie interdum sodales, est est venenatis nisi, eu hendrerit lorem eros non dui.</p>
+      <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur felis urna, posuere ut elit a, rutrum egestas lectus. Fusce eleifend erat at libero ornare dignissim. Curabitur posuere egestas pulvinar. Morbi egestas sem sapien, lobortis venenatis felis varius nec. Sed pellentesque scelerisque nisi, eu auctor lectus faucibus quis. In lectus sem, pretium vel lorem non, finibus commodo nisl. Morbi vitae ex ultricies, hendrerit leo ullamcorper, venenatis est. Donec eu ante commodo, lobortis nunc laoreet, aliquet libero. Pellentesque at viverra ligula. Vivamus gravida, enim molestie interdum sodales, est est venenatis nisi, eu hendrerit lorem eros non dui.</p>
+
+    </div>
+
+    <!-- PIE DE PAGINA -->
+    <footer class="text-center text-lg-start text-muted" style="background-color: rgb(210, 210, 210)">
+      
+      <!-- Section: Links  -->
+      <section class="">
+        <div class="container text-center text-md-start mt-5">
+          <!-- Grid row -->
+          <div class="row mt-3">
+            <!-- Grid column -->
+            <div class="col-md-3 col-lg-4 col-xl-3 mx-auto mb-4">
+              <!-- Content -->
+              <h6 class="text-uppercase fw-bold mb-4">
+                <i class="fas fa-gem me-3"></i> <br>SpeedTour
+              </h6>
+              <p>
+                informacion contenida y de informacion al publico.
+              </p>
+            </div>
+            <!-- Grid column -->
+            <div class="col-md-2 col-lg-2 col-xl-2 mx-auto mb-4">
+              <!-- Links -->
+              <h6 class="text-uppercase fw-bold mb-4">
+                <br>  Actividades:
+              </h6>
+              <p>
+                <a href="#!" class="text-reset">paracaidismo</a>
+              </p>
+              <p>
+                <a href="#!" class="text-reset">Senderismo</a>
+              </p>
+              <p>
+                <a href="#!" class="text-reset">Bungee</a>
+              </p>
+            </div>
+            <div class="col-md-3 col-lg-2 col-xl-2 mx-auto mb-4">
+              <!-- Links -->
+              <h6 class="text-uppercase fw-bold mb-4">
+                <br>Horarios servicio.
+              </h6>
+              <p>
+                <a href="#!" class="text-reset">lunes-viernes: 6AM-8PM</a>
+              </p>
+              <p>
+                <a href="#!" class="text-reset">sabado: 6AM-6PM</a>
+              </p>
+              <p>
+                <a href="#!" class="text-reset">Domingo-Festivos: 8AM-4PM</a>
+              </p>
+            </div>
+            
+            <div class="col-md-4 col-lg-3 col-xl-3 mx-auto mb-md-0 mb-4">
+              <!-- Links -->
+              <h6 class="text-uppercase fw-bold mb-4">
+                <br>Contacto
+              </h6>
+              <p><i class="fas fa-home me-3"></i> Medellin, Colombia</p>
+              <p>
+                <i class="fas fa-envelope me-3"></i>
+                udea@edua.edu.co
+              </p>
+              <p><i class="fas fa-phone me-3"></i> + 01 234 567 88</p>
+              <p><i class="fas fa-print me-3"></i> + 01 234 567 89</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Copyright -->
+      <div class="text-center p-4" style="background-color: rgba(0, 0, 0, 0.05);">
+        © 2021 Copyright:
+        <a class="text-reset fw-bold" href="localhost/htdocs/Proyecto_final/index.php">SpeedTour</a>
+      </div>
+      <!-- Copyright -->
+    </footer>
+  </div>
+    
+
+    <!-- <div class="Cuerpo" style="margin-left: 10%; margin-right: 10%;">
       <div id="carouselExampleControls" class="carousel slide" data-bs-ride="carousel">
     <div class="carousel-inner" style="height: 200px;">
       <div class="carousel-item active">
@@ -69,100 +213,7 @@
     <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="next">
       <span class="carousel-control-next-icon" aria-hidden="true"></span>
       <span class="visually-hidden">Next</span>
-    </button>
-
-    <div style="margin: 10%">
-      <h1 style="text-align: center;">SpeedTour</h1> <br>
-
-      <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur felis urna, posuere ut elit a, rutrum egestas lectus. Fusce eleifend erat at libero ornare dignissim. Curabitur posuere egestas pulvinar. Morbi egestas sem sapien, lobortis venenatis felis varius nec. Sed pellentesque scelerisque nisi, eu auctor lectus faucibus quis. In lectus sem, pretium vel lorem non, finibus commodo nisl. Morbi vitae ex ultricies, hendrerit leo ullamcorper, venenatis est. Donec eu ante commodo, lobortis nunc laoreet, aliquet libero. Pellentesque at viverra ligula. Vivamus gravida, enim molestie interdum sodales, est est venenatis nisi, eu hendrerit lorem eros non dui.</p>
-
-      <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur felis urna, posuere ut elit a, rutrum egestas lectus. Fusce eleifend erat at libero ornare dignissim. Curabitur posuere egestas pulvinar. Morbi egestas sem sapien, lobortis venenatis felis varius nec. Sed pellentesque scelerisque nisi, eu auctor lectus faucibus quis. In lectus sem, pretium vel lorem non, finibus commodo nisl. Morbi vitae ex ultricies, hendrerit leo ullamcorper, venenatis est. Donec eu ante commodo, lobortis nunc laoreet, aliquet libero. Pellentesque at viverra ligula. Vivamus gravida, enim molestie interdum sodales, est est venenatis nisi, eu hendrerit lorem eros non dui.</p>
-      <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur felis urna, posuere ut elit a, rutrum egestas lectus. Fusce eleifend erat at libero ornare dignissim. Curabitur posuere egestas pulvinar. Morbi egestas sem sapien, lobortis venenatis felis varius nec. Sed pellentesque scelerisque nisi, eu auctor lectus faucibus quis. In lectus sem, pretium vel lorem non, finibus commodo nisl. Morbi vitae ex ultricies, hendrerit leo ullamcorper, venenatis est. Donec eu ante commodo, lobortis nunc laoreet, aliquet libero. Pellentesque at viverra ligula. Vivamus gravida, enim molestie interdum sodales, est est venenatis nisi, eu hendrerit lorem eros non dui.</p>
-      <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur felis urna, posuere ut elit a, rutrum egestas lectus. Fusce eleifend erat at libero ornare dignissim. Curabitur posuere egestas pulvinar. Morbi egestas sem sapien, lobortis venenatis felis varius nec. Sed pellentesque scelerisque nisi, eu auctor lectus faucibus quis. In lectus sem, pretium vel lorem non, finibus commodo nisl. Morbi vitae ex ultricies, hendrerit leo ullamcorper, venenatis est. Donec eu ante commodo, lobortis nunc laoreet, aliquet libero. Pellentesque at viverra ligula. Vivamus gravida, enim molestie interdum sodales, est est venenatis nisi, eu hendrerit lorem eros non dui.</p>
-
-    </div>
-    
-  </div>
-        
-  <footer class="text-center text-lg-start bg-light text-muted">
-    
-    <!-- Section: Links  -->
-    <section class="">
-      <div class="container text-center text-md-start mt-5">
-        <!-- Grid row -->
-        <div class="row mt-3">
-          <!-- Grid column -->
-          <div class="col-md-3 col-lg-4 col-xl-3 mx-auto mb-4">
-            <!-- Content -->
-            <h6 class="text-uppercase fw-bold mb-4">
-              <i class="fas fa-gem me-3"></i>UNIVERSIDAD DE ANTIOQUIA
-            </h6>
-            <p>
-              informacion contenida y de informacion al publico.
-            </p>
-          </div>
-          <!-- Grid column -->
-
-          <!-- Grid column -->
-          <div class="col-md-2 col-lg-2 col-xl-2 mx-auto mb-4">
-            <!-- Links -->
-            <h6 class="text-uppercase fw-bold mb-4">
-              facultades
-            </h6>
-            <p>
-              <a href="#!" class="text-reset">Ingenieria</a>
-            </p>
-            <p>
-              <a href="#!" class="text-reset">Ciencias exactas</a>
-            </p>
-            <p>
-              <a href="#!" class="text-reset">Quimica</a>
-            </p>
-            <p>
-              <a href="#!" class="text-reset">Educacion Fisica</a>
-            </p>
-          </div>
-          <div class="col-md-3 col-lg-2 col-xl-2 mx-auto mb-4">
-            <!-- Links -->
-            <h6 class="text-uppercase fw-bold mb-4">
-              Horarios servicio.
-            </h6>
-            <p>
-              <a href="#!" class="text-reset">lunes-viernes: 6AM-8PM</a>
-            </p>
-            <p>
-              <a href="#!" class="text-reset">sabado: 6AM-6PM</a>
-            </p>
-            <p>
-              <a href="#!" class="text-reset">Domingo-Festivos: 8AM-4PM</a>
-            </p>
-          </div>
-          
-          <div class="col-md-4 col-lg-3 col-xl-3 mx-auto mb-md-0 mb-4">
-            <!-- Links -->
-            <h6 class="text-uppercase fw-bold mb-4">
-              Contacto
-            </h6>
-            <p><i class="fas fa-home me-3"></i> Medellin, Colombia</p>
-            <p>
-              <i class="fas fa-envelope me-3"></i>
-              udea@edua.edu.co
-            </p>
-            <p><i class="fas fa-phone me-3"></i> + 01 234 567 88</p>
-            <p><i class="fas fa-print me-3"></i> + 01 234 567 89</p>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- Copyright -->
-    <div class="text-center p-4" style="background-color: rgba(0, 0, 0, 0.05);">
-      © 2021 Copyright:
-      <a class="text-reset fw-bold" href="https://mdbootstrap.com/">MDBootstrap.com</a>
-    </div>
-    <!-- Copyright -->
-  </footer>
-  <!-- Footer -->
+    </button> -->
 
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3" crossorigin="anonymous"></script>
   

@@ -1,0 +1,9 @@
+Nombre : SoundTech
+
+1) organizacion de imagenes y contenido.
+2) organizacion de paginas con contenido correspondiente.
+3) Organizacion de Datos.
+4) trabajo php.
+
+fuentes:
+https://www.aviatur.com/blog/experiencias/lugares-para-hacer-senderismo-colombia
