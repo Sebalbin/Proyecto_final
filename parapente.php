@@ -5,6 +5,11 @@
   }else{
     $_SESSION['auten']=0;
   }
+  if ( fgets($file) == "1"){
+    $_SESSION['admin']=1;
+  }else{
+    $_SESSION['admin']=0;
+  }
   fclose($file);
 ?>
 
@@ -28,6 +33,10 @@
       margin-top: 50px;
   }
 </style>
+
+<script >
+  
+</script>
 
 <body>
 
@@ -109,129 +118,138 @@
               <span class="carousel-control-next-icon" aria-hidden="true"></span>
               <span class="visually-hidden">Next</span>
             </button>
-          </div>
+        </div>
 
+        
         <!-- Contenido -->
-        <dl class="row" style="margin-left: 10%; margin-right: 10%;">
-            <dt class="col-md-6"><img  id="parapente_1" style="width:100%;"  src="https://www.despejandodudas.co/images/Imgs_2/Nube_Extrema_4.jpg" alt="Facultad x"></dt>
-            <dd class="col-md-6">
-                <h5> <b>San felix.</b> </h5>
-                <p>
-                    - 15 minutos - fotos - 1 video => 150.000$ <br>
-                    - 20 minutos - fotos - 1 video => 180.000$ <br>
-                    - 30 minutos - fotos - 2 video => 250.000$ <br>
-                    Kilómetro 6 Vía San Pedro de los Milagros, San Félix, Bello,  Antioquia
-                </p>
-            </dd>
+    
+        <div style="margin: 10%">
 
-            <dt class="col-md-6"><img  id="parapente_2" style="width:100%;"  src="https://adrenalinecolombia.com/wp-content/uploads/2021/07/Parapente-Cerca-a-Medellin-Cocorna_-Adrenaline-colombia-1-870x555.png" alt="Facultad x"></dt>
-            <dd class="col-md-6">
-                <h5> <b>Cocorna.</b> </h5>
-                <p>
-                  - 15 minutos - fotos - 1 video => 120.000$ <br>
-                  - 20 minutos - fotos - 1 video => 160.000$ <br>
-                  - 30 minutos - fotos - 2 video => 210.000$ <br>
-                  Cocorná es uno de los pueblos del oriente antioqueño, y está apenas a dos horas de Medellín.
-                </p>
-            </dd>
+          <!-- exclusivo admin -->  
+          <!-- AGREGAR EVENTO NUEVO -->
 
-            <dt class="col-md-6"><img  id="imagen_facultades" style="width:100%;"  src="https://hotelesensangil.com/wp-content/uploads/2021/12/Parapente-Canon-del-chicamocha-9.jpg" alt="Facultad x"></dt>
-            <dd class="col-md-6">
-                <h5> <b>El Cañón de Chicamocha (Santander).</b> </h5>
-                <p>
-                  - 15 minutos - fotos - 1 video => 120.000$ <br>
-                  - 20 minutos - fotos - 1 video => 160.000$ <br>
-                  - 30 minutos - fotos - 2 video => 210.000$ <br>
-                  A solo 54 kilómetros de Bucaramanga, entre Aratoca y Piedecuesta se encuentra el impresionante Cañón de Chicamocha. ¿Qué lo hace tan especial? Es el segundo cañón más grande del mundo, con más de 108.000 hectáreas y 2.000 metros de profundidad.</p>
-            </dd>
+          <script type="text/javaScript">
+            var x = <?php echo $_SESSION['admin'] ?>;
+            if (x===1){
+              document.write("<div style='border:2px solid yellow;margin-left: 10%;margin-right: 10%; box-shadow: 0px 0px 50px rgb(211, 172, 14);' >");
+              document.write("<form action='añadir_parapente.php' method='post' style='margin: 5%;'>");
+              document.write("<CENTER><h5>AGREGAR NUEVO EVENTO.</h5></CENTER> ");
+              document.write("<p>Link imagen: <input type='text' id='_link' name='_link' ></p>");
+              document.write("<p>lugar: <input type='text' id='_lugar' name='_lugar' ></p>");
+              document.write("<p>valor 1: <input type='text' id='_valor1' name='_valor1'></p>");
+              document.write("<p>valor 2: <input type='text' id='_valor2' name='_valor2'></p>");
+              document.write("<p>valor 3: <input type='text' id='_valor3' name='_valor3'></p>");
+              document.write("<p>contenido: <input type='text' id='contenido' name='contenido' style='width: 80%; height: 20px'></p>");
+              document.write("<center><input class='btn btn-primary' id='reg' type='submit' value='añadir' style='margin-top: 10%;'></center> ");
+              document.write("</form>");
+              document.write("</div>");
+            }
+            
+          </script>
+          
 
-            <dt class="col-md-6"><img  id="imagen_facultades" style="width:100%;"  src="http://blogimagestc.s3.amazonaws.com/Parapente%20sopo.png" alt="Facultad x"></dt>
-            <dd class="col-md-6">
-                <h5>Embalse de Tominé (Cundinamarca)</h5>
-                <p>
-                  - 15 minutos - fotos - 1 video => 120.000$ <br>
-                  - 20 minutos - fotos - 1 video => 160.000$ <br>
-                  - 30 minutos - fotos - 2 video => 210.000$ <br>
-                  Desde el municipio se debe dirigir al sitio de despegue que está ubicado a 4.5 km de Sopó, en la vía al Parque Pionono.
-                </p>
-            </dd>
-        </dl>
+          <!-- LECTURA DE ARCHIVO/EVENTOS -->
+          <?php
+
+            $servidor = mysqli_connect("localhost", "root", "");
+            mysqli_select_db($servidor,"parapentes");
+            $consulta = "SELECT * FROM lugares";
+            $respuesta = mysqli_query($servidor, $consulta);
+
+            while( $lugar = mysqli_fetch_assoc($respuesta) ){
+                print( "<div>" );
+                print( "<dl class='row'>" );
+                print( "<dt class='col-md-6'><img  id='parapente_1' style='width:100%;'  src='".$lugar['link']."' alt='Facultad x'></dt>" ); 
+                print( "<dd class='col-md-6'>" );
+                print( "<h5> <b>".$lugar['lugar']."</b> </h5>" );
+                print( "<p>".$lugar['valor1']."<br>" );
+                print( $lugar['valor2']."<br>" );
+                print( $lugar['valor3']."<br>" );
+                print( $lugar['contenido']."<br></p>" );
+                print( "</dd>" );
+                print( "</dl>" );
+                print( "</div>" );
+            }
+          ?>
+
+        </div>
+
 
         <!-- PIE DE PAGINA -->
         <footer class="text-center text-lg-start text-muted" style="background-color: rgb(210, 210, 210)">
       
-            <!-- Section: Links  -->
-            <section class="">
-              <div class="container text-center text-md-start mt-5">
-                <!-- Grid row -->
-                <div class="row mt-3">
-                  <!-- Grid column -->
-                  <div class="col-md-3 col-lg-4 col-xl-3 mx-auto mb-4">
-                    <!-- Content -->
-                    <h6 class="text-uppercase fw-bold mb-4">
-                      <i class="fas fa-gem me-3"></i> <br>SpeedTour
-                    </h6>
-                    <p>
-                      informacion contenida y de informacion al publico.
-                    </p>
-                  </div>
-                  <!-- Grid column -->
-                  <div class="col-md-2 col-lg-2 col-xl-2 mx-auto mb-4">
-                    <!-- Links -->
-                    <h6 class="text-uppercase fw-bold mb-4">
-                      <br>  Actividades:
-                    </h6>
-                    <p>
-                      <a href="#!" class="text-reset">paracaidismo</a>
-                    </p>
-                    <p>
-                      <a href="#!" class="text-reset">Senderismo</a>
-                    </p>
-                    <p>
-                      <a href="#!" class="text-reset">Bungee</a>
-                    </p>
-                  </div>
-                  <div class="col-md-3 col-lg-2 col-xl-2 mx-auto mb-4">
-                    <!-- Links -->
-                    <h6 class="text-uppercase fw-bold mb-4">
-                      <br>Horarios servicio.
-                    </h6>
-                    <p>
-                      <a href="#!" class="text-reset">lunes-viernes: 6AM-8PM</a>
-                    </p>
-                    <p>
-                      <a href="#!" class="text-reset">sabado: 6AM-6PM</a>
-                    </p>
-                    <p>
-                      <a href="#!" class="text-reset">Domingo-Festivos: 8AM-4PM</a>
-                    </p>
-                  </div>
-                  
-                  <div class="col-md-4 col-lg-3 col-xl-3 mx-auto mb-md-0 mb-4">
-                    <!-- Links -->
-                    <h6 class="text-uppercase fw-bold mb-4">
-                      <br>Contacto
-                    </h6>
-                    <p><i class="fas fa-home me-3"></i> Medellin, Colombia</p>
-                    <p>
-                      <i class="fas fa-envelope me-3"></i>
-                      udea@edua.edu.co
-                    </p>
-                    <p><i class="fas fa-phone me-3"></i> + 01 234 567 88</p>
-                    <p><i class="fas fa-print me-3"></i> + 01 234 567 89</p>
-                  </div>
+          <!-- Section: Links  -->
+          <section class="">
+            <div class="container text-center text-md-start mt-5">
+              <!-- Grid row -->
+              <div class="row mt-3">
+                <!-- Grid column -->
+                <div class="col-md-3 col-lg-4 col-xl-3 mx-auto mb-4">
+                  <!-- Content -->
+                  <h6 class="text-uppercase fw-bold mb-4">
+                    <i class="fas fa-gem me-3"></i> <br>SpeedTour
+                  </h6>
+                  <p>
+                    informacion contenida y de informacion al publico.
+                  </p>
+                </div>
+                <!-- Grid column -->
+                <div class="col-md-2 col-lg-2 col-xl-2 mx-auto mb-4">
+                  <!-- Links -->
+                  <h6 class="text-uppercase fw-bold mb-4">
+                    <br>  Actividades:
+                  </h6>
+                  <p>
+                    <a href="#!" class="text-reset">paracaidismo</a>
+                  </p>
+                  <p>
+                    <a href="#!" class="text-reset">Senderismo</a>
+                  </p>
+                  <p>
+                    <a href="#!" class="text-reset">Bungee</a>
+                  </p>
+                </div>
+                <div class="col-md-3 col-lg-2 col-xl-2 mx-auto mb-4">
+                  <!-- Links -->
+                  <h6 class="text-uppercase fw-bold mb-4">
+                    <br>Horarios servicio.
+                  </h6>
+                  <p>
+                    <a href="#!" class="text-reset">lunes-viernes: 6AM-8PM</a>
+                  </p>
+                  <p>
+                    <a href="#!" class="text-reset">sabado: 6AM-6PM</a>
+                  </p>
+                  <p>
+                    <a href="#!" class="text-reset">Domingo-Festivos: 8AM-4PM</a>
+                  </p>
+                </div>
+                
+                <div class="col-md-4 col-lg-3 col-xl-3 mx-auto mb-md-0 mb-4">
+                  <!-- Links -->
+                  <h6 class="text-uppercase fw-bold mb-4">
+                    <br>Contacto
+                  </h6>
+                  <p><i class="fas fa-home me-3"></i> Medellin, Colombia</p>
+                  <p>
+                    <i class="fas fa-envelope me-3"></i>
+                    udea@edua.edu.co
+                  </p>
+                  <p><i class="fas fa-phone me-3"></i> + 01 234 567 88</p>
+                  <p><i class="fas fa-print me-3"></i> + 01 234 567 89</p>
                 </div>
               </div>
-            </section>
-      
-            <!-- Copyright -->
-            <div class="text-center p-4" style="background-color: rgba(0, 0, 0, 0.05);">
-              © 2021 Copyright:
-              <a class="text-reset fw-bold" href="localhost/htdocs/Proyecto_final/index.php">SpeedTour</a>
             </div>
-            <!-- Copyright -->
-          </footer>
-    </div>
+          </section>
+    
+          <!-- Copyright -->
+          <div class="text-center p-4" style="background-color: rgba(0, 0, 0, 0.05);">
+            © 2021 Copyright:
+            <a class="text-reset fw-bold" href="localhost/htdocs/Proyecto_final/index.php">SpeedTour</a>
+          </div>
+          <!-- Copyright -->
+        </footer>
+    
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3" crossorigin="anonymous"></script>
 

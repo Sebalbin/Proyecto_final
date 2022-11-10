@@ -5,6 +5,11 @@
   }else{
     $_SESSION['auten']=0;
   }
+  if ( fgets($file) == "1"){
+    $_SESSION['admin']=1;
+  }else{
+    $_SESSION['admin']=0;
+  }
   fclose($file);
 ?>
 
@@ -71,6 +76,14 @@
     </div>
 
     <!-- Cuerpo de la pagina -->
+    
+    
+    
+    
+    
+    
+    
+    
     <div style="margin-left: 15%; margin-right: 15%; box-shadow: 0px 0px 50px #000;">
 
         <!-- Carrusel -->
@@ -111,63 +124,55 @@
             </button>
           </div>
 
-                                                                    <!-- Contenido -->
-        <dl class="row" style="margin-left: 10%; margin-right: 10%;">
-            <dt class="col-md-6"><img  id="ciudad_perdida" style="width:100%; height: 250px;"  src="imagenes/ciudad_perdida.PNG" alt="Facultad x"></dt>
-            <dd class="col-md-6">
-                <h5> <b>Ciudad Perdida.</b> </h5>
-                <h6>valor: 35.000$</h6>
-                <p>
-                    Esta es una de las aventuras inolvidables, para la que se debe tener un buen estado físico, son entre 4 y 5 horas cada jornada. Lo ideal, es disponer de 4 días para conocer este centro urbano de la antigua civilización Tayrona, conformada por plazoletas circulares, escaleras, caminos y canales construidos en piedra, así como viviendas hechas en bahareque y paja.
-                </p>
-            </dd>
+        
+        <!-- Contenido -->
+        
+        <div style="margin: 10%">
 
-            <dt class="col-md-6"><img  id="cascada" style="width:100%; height: 250px;"  src="https://www.ecoturismoputumayo.com/images/atractivos/4/cascadas-fin-del-mundo-6.jpg" alt="Facultad x"></dt>
-            <dd class="col-md-6">
-                <h5> <b>Cascada del Fin del Mundo.</b> </h5>
-                <h6>valor: 50.000$</h6>
-                <p>
-                    Los senderos son fáciles de seguir, están delimitados y siempre hay personal de la reserva en el camino. Debes disponer de un día entero para hacer el recorrido sin afanes. El ingreso es de 7:00 a.m. hasta el mediodía y cuesta unos 15 mil pesos.
-                </p>
-            </dd>
+          <!-- exclusivo admin -->  
+          <!-- AGREGAR EVENTO NUEVO -->
 
-            <dt class="col-md-6"><img  id="caño_cristales" style="width:100%; height: 250px;"  src="https://www.nationalgeographic.com.es/medio/2014/09/16/ogrunewald_cano_cristales_24_1800x1201.jpg" alt="Facultad x"></dt>
-            <dd class="col-md-6">
-                <h5> <b>Caño Cristales.</b> </h5>
-                <h6>valor: 45.000$</h6>
-                <p>
-                    En un día soleado, los colores verde, púrpura, rojo, amarillo y azul de Caño Cristales aparecerán a la vista, pareciera como si el arco iris se hubiera fundido dentro del agua cristalina de este río, considerado el más lindo del mundo.
-                </p>
-            </dd>
+          <script type="text/javaScript">
+            var x = <?php echo $_SESSION['admin'] ?>;
+            if (x===1){
+              document.write("<div style='border:2px solid yellow;margin-left: 10%;margin-right: 10%; box-shadow: 0px 0px 50px rgb(211, 172, 14);' >");
+              document.write("<form action='add_senderismo.php' method='post' style='margin: 5%;'>");
+              document.write("<CENTER><h5>AGREGAR NUEVO EVENTO.</h5></CENTER> ");
+              document.write("<p>Link imagen: <input type='text' id='_link' name='_link' ></p>");
+              document.write("<p>lugar: <input type='text' id='_lugar' name='_lugar' ></p>");
+              document.write("<p>valor: <input type='text' id='_valor' name='_valor'></p>");
+              document.write("<p>contenido: <input type='text' id='contenido' name='contenido' style='width: 80%; height: 20px'></p>");
+              document.write("<center><input class='btn btn-primary' id='reg' type='submit' value='añadir' style='margin-top: 10%;'></center> ");
+              document.write("</form>");
+              document.write("</div>");
+            }
+            
+          </script>
+          
 
-            <dt class="col-md-6"><img  id="guatape" style="width:100%; height: 250px;"  src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQWv4MP0HoOAu0tOlZgNUeFTEP3k3Q3BmqySThkIuXvjXOYlDsmAY7HfwMB4SF3qxJrnYI&usqp=CAU" alt="Facultad x"></dt>
-            <dd class="col-md-6">
-                <h5> <b>El Peñon de Guatapé.</b> </h5>
-                <h6>valor: 55.000$</h6>
-                <p>
-                    El peñon se ha convertido en la gran atracción de este lugar antioqueño, para quienes quieren ascender a la cima y vivir la experiencia de estar en un verdadero paisaje “paisa”.
-                </p>
-            </dd>
+          <!-- LECTURA DE ARCHIVO/EVENTOS -->
+          <?php
 
-            <dt class="col-md-6"><img  id="chicaque" style="width:100%; height: 250px;"  src="https://hansatours.com/images/chicaque-tour-ecotour.jpg" alt="Facultad x"></dt>
-            <dd class="col-md-6">
-                <h5> <b>Chicaque.</b> </h5>
-                <h6>valor: 50.000$</h6>
-                <p>
-                    Este parque natural es un bosque de niebla de unos 10 kilómetros de senderos que llevan a quebradas de aguas cristalinas, entre robles y vegetación nativa y más de 200 especies de aves y otras como el oso de anteojos, osos perezosos, ardillas y conejos. 
-                </p>
-            </dd>
+            $servidor = mysqli_connect("localhost", "root", "");
+            mysqli_select_db($servidor,"parapentes");
+            $consulta = "SELECT * FROM senderismo";
+            $respuesta = mysqli_query($servidor, $consulta);
 
+            while( $lugar = mysqli_fetch_assoc($respuesta) ){
+                print( "<div>" );
+                print( "<dl class='row'>" );
+                print( "<dt class='col-md-6'><img  id='parapente_1' style='width:100%;'  src='".$lugar['link']."' alt='Facultad x'></dt>" ); 
+                print( "<dd class='col-md-6'>" );
+                print( "<h5> <b>".$lugar['lugar']."</b> </h5>" );
+                print( "<p>".$lugar['valor']."<br>" );
+                print( $lugar['contenido']."<br></p>" );
+                print( "</dd>" );
+                print( "</dl>" );
+                print( "</div>" );
+            }
+          ?>
 
-            <dt class="col-md-6"><img  id="cocora" style="width:100%; height: 250px;"  src="https://cdn.colombia.com/sdi/2013/12/10/salento-y-el-valle-del-cocora-755825.jpg" alt="Facultad x"></dt>
-            <dd class="col-md-6">
-                <h5> <b>Valle del Cocora.</b> </h5>
-                <h6>valor: 43.000$</h6>
-                <p>
-                    Este valle en medio de las montañas andinas es muy conocido por ser la región de la palma de cera, uno de los símbolos nacionales, a través del cual se puede realizar una caminata hacia las zonas de alta montaña, preferiblemente en compañía de un guía local para evitar perderse entre la niebla.
-                </p>
-            </dd>
-        </dl>
+        </div>
 
         <!-- PIE DE PAGINA -->
         <footer class="text-center text-lg-start text-muted" style="background-color: rgb(210, 210, 210)">

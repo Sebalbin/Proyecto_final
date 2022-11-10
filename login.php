@@ -7,6 +7,8 @@ $auten=false;
 
 $consulta = "SELECT * FROM usuarios WHERE nick='".$_POST['nick']."' AND contra='".$_POST['contra']."'";
 $respuesta = mysqli_query($servidor, $consulta);
+$usuario = mysqli_fetch_assoc($respuesta);
+print($usuario['admin']);
 if (mysqli_num_rows($respuesta)>0){
     $auten = true;
 }
@@ -21,7 +23,8 @@ if ($auten){
 
     // creacion de archivo para verificar sesion
     $file = fopen("sesion.txt", "w");
-    fwrite($file,"1");
+    fwrite($file,"1\n");
+    fwrite($file,$usuario['admin']);
     fclose($file);
 }
 else{

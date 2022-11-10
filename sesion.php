@@ -152,7 +152,7 @@
         <!--  opcionales comunes de terminos y condiciones o si tienen cuenta-->
         <center>
           <p>Estoy de acuerdo con <a href="#">Terminos y Condiciones</a></p>
-          <input class="btn btn-primary" id="reg" onclick="alert('Ingreso exitoso.')" type="submit" value="INGRESO">
+          <input class="btn btn-primary" id="reg" type="submit" value="INGRESO">
           <center> <p> <a href="#">¿No tengo Cuenta?</a> </p> 
         </center>
       </form>
@@ -167,13 +167,11 @@
         <input class="cuadros_reg" type="email" name="correo" id="correo" placeholder="Correo: ejemplo@gmail.com">
         <input class="cuadros_reg" type="password" name="contra" id="contra" placeholder="Contraseña">
         
-        INGRESE FOTO DE PERFIL:
-        <input type="file" name="imagen">
 
         <!--  opcionales comunes de terminos y condiciones o si tienen cuenta-->
         <center>
           <p>Estoy de acuerdo con <a href="#">Terminos y Condiciones</a></p>
-          <input class="btn btn-primary" id="reg" onclick="alert('Registrado con exito.')" type="submit" value="REGISTRAR">
+          <input class="btn btn-primary" id="reg" type="submit" value="REGISTRAR">
           <p> <a href="#">¿Ya tengo Cuenta?</a> </p> 
         </center>
       </form>
