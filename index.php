@@ -1,5 +1,10 @@
 <?php
-  $file = fopen("sesion.txt", "r");
+
+  error_reporting(0);
+  error_reporting(E_ERROR );
+  session_start();
+
+  $file = fopen("funtions/sesion.txt", "r");
   if ( fgets($file) == "1"){
     $_SESSION['auten']=1;
   }else{
@@ -54,9 +59,12 @@
                 <li><a class="dropdown-item" href="#">Something else here</a></li>
                 </ul>
             </li>
+            <li class="nav-item">
+            <button type='button' class='btn btn-primary'><?php print($_SESSION['nick']); ?> </button>
+            </li>
           </ul>
           <?php
-              if ($_SESSION['auten'] == 1){  print("<a class='btn btn-primary' href='logout.php' role='button' style='background: rgb(211, 172, 14);'>Cerrar sesion</a>"); } 
+              if ($_SESSION['auten'] == 1){  print("<a class='btn btn-primary' href='funtions/logout.php' role='button' style='background: rgb(211, 172, 14);'>Cerrar sesion</a>"); } 
             else{  print("<a class='btn btn-primary' href='sesion.php' role='button' style='background: rgb(211, 172, 14);'>Inicio/Registro</a>"); }
           ?>
         </div>

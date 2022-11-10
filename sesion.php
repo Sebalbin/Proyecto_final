@@ -1,9 +1,18 @@
 <?php
-  $file = fopen("sesion.txt", "r");
+  error_reporting(0);
+  error_reporting(E_ERROR );
+  session_start();
+
+  $file = fopen("funtions/sesion.txt", "r");
   if ( fgets($file) == "1"){
     $_SESSION['auten']=1;
   }else{
     $_SESSION['auten']=0;
+  }
+  if ( fgets($file) == "1"){
+    $_SESSION['admin']=1;
+  }else{
+    $_SESSION['admin']=0;
   }
   fclose($file);
 ?>
@@ -131,6 +140,9 @@
                   <li><a class="dropdown-item" href="#">Something else here</a></li>
                   </ul>
               </li>
+              <li class="nav-item">
+                <button type='button' class='btn btn-primary'><?php print($_SESSION['nick']); ?> </button>
+              </li>
             </ul>
               <?php
                 if ($_SESSION['auten'] == 1){  print("<a class='btn btn-primary' href='logout.php' role='button' style='background: rgb(211, 172, 14);'>Cerrar sesion</a>"); } 
@@ -143,7 +155,7 @@
 
   <div class="row">
 		<div class="col">
-			<form action="login.php" method="post" class="ingreso" style="padding-right: 4%;">
+			<form action="funtions/login.php" method="post" class="ingreso" style="padding-right: 4%;">
 				<!--  creacion de los inputs que reciben los datos pedidos y la imagen de perfil-->
         <h1>Ingreso Usuario</h1>
         <input class="cuadros_reg" type="text" name="nick" id="nick_ingreso" placeholder="Nickname">
@@ -159,10 +171,9 @@
     </div>
 
     <div class="col">
-      <form action="registro.php" method="post" class="Registro" style="padding-right: 4%;">
+      <form action="funtions/registro.php" method="post" class="Registro" style="padding-right: 4%;">
         <!--  creacion de los inputs que reciben los datos pedidos y la imagen de perfil-->
         <h1>Formulario Registro</h1>
-        <input class="cuadros_reg" type="text" name="nombre" id="nombre" placeholder="Nombre completo">
         <input class="cuadros_reg" type="text" name="nick" id="nick" placeholder="Nickname">
         <input class="cuadros_reg" type="email" name="correo" id="correo" placeholder="Correo: ejemplo@gmail.com">
         <input class="cuadros_reg" type="password" name="contra" id="contra" placeholder="Contraseña">

@@ -1,5 +1,9 @@
 <?php
-  $file = fopen("sesion.txt", "r");
+  error_reporting(0);
+  error_reporting(E_ERROR );
+  session_start();
+
+  $file = fopen("funtions/sesion.txt", "r");
   if ( fgets($file) == "1"){
     $_SESSION['auten']=1;
   }else{
@@ -65,6 +69,9 @@
                   <li><a class="dropdown-item" href="#">Something else here</a></li>
                   </ul>
               </li>
+              <li class="nav-item">
+                <button type='button' class='btn btn-primary'><?php print($_SESSION['nick']); ?> </button>
+              </li>
             </ul>
             <?php
               if ($_SESSION['auten'] == 1){  print("<a class='btn btn-primary' href='logout.php' role='button' style='background: rgb(211, 172, 14);'>Cerrar sesion</a>"); } 
@@ -77,14 +84,7 @@
 
     <!-- Cuerpo de la pagina -->
     
-    
-    
-    
-    
-    
-    
-    
-    <div style="margin-left: 15%; margin-right: 15%; box-shadow: 0px 0px 50px #000;">
+    <div style="margin-left: 15%; margin-right: 15%; box-shadow: 0px 0px 150px rgb(211, 172, 14);">
 
         <!-- Carrusel -->
         <div id="carouselExampleCaptions" class="carousel slide" data-bs-ride="false" style="height: 300px;">
@@ -136,7 +136,7 @@
             var x = <?php echo $_SESSION['admin'] ?>;
             if (x===1){
               document.write("<div style='border:2px solid yellow;margin-left: 10%;margin-right: 10%; box-shadow: 0px 0px 50px rgb(211, 172, 14);' >");
-              document.write("<form action='add_senderismo.php' method='post' style='margin: 5%;'>");
+              document.write("<form action='funtions/add_senderismo.php' method='post' style='margin: 5%;'>");
               document.write("<CENTER><h5>AGREGAR NUEVO EVENTO.</h5></CENTER> ");
               document.write("<p>Link imagen: <input type='text' id='_link' name='_link' ></p>");
               document.write("<p>lugar: <input type='text' id='_lugar' name='_lugar' ></p>");

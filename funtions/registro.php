@@ -4,8 +4,9 @@
 
     //CONTROL DE ERROR EN EL REGISTRO!
     try {
-        $add = "INSERT INTO usuarios (nick, correo, contra, admin) VALUES ('".$_POST['nombre']."','".$_POST['nick']."','".$_POST['correo']."','".$_POST['contra']."');";
+        $add = "INSERT INTO usuarios (nick, correo, contra) VALUES ('".$_POST['nick']."','".$_POST['correo']."','".$_POST['contra']."');";
         mysqli_query($servidor, $add);
+        header('location: ../sesion.php');
     } catch (Exception $e) {
         echo '<script>alert("Ha ocurrido un error, el Nick/correo ya esta en uso!")</script>';
     }
@@ -26,7 +27,7 @@
 </head>
 <body>
     <CENTER style="margin-top: 100px;">
-        <a href="sesion.php" class="btn btn-warning" tabindex="-1" role="button" aria-disabled="true">REGRESAR.</a>  
+        <a href="../sesion.php" class="btn btn-warning" tabindex="-1" role="button" aria-disabled="true">REGRESAR.</a>  
     </CENTER>
     
 </body>

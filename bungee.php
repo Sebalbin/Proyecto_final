@@ -1,9 +1,18 @@
 <?php
-  $file = fopen("sesion.txt", "r");
+  error_reporting(0);
+  error_reporting(E_ERROR );
+  session_start();
+
+  $file = fopen("funtions/sesion.txt", "r");
   if ( fgets($file) == "1"){
     $_SESSION['auten']=1;
   }else{
     $_SESSION['auten']=0;
+  }
+  if ( fgets($file) == "1"){
+    $_SESSION['admin']=1;
+  }else{
+    $_SESSION['admin']=0;
   }
   fclose($file);
 ?>
@@ -60,9 +69,12 @@
                   <li><a class="dropdown-item" href="#">Something else here</a></li>
                   </ul>
               </li>
+              <li class="nav-item">
+                <button type='button' class='btn btn-primary'><?php print($_SESSION['nick']); ?> </button>
+              </li>
             </ul>
             <?php
-              if ($_SESSION['auten'] == 1){  print("<a class='btn btn-primary' href='logout.php' role='button' style='background: rgb(211, 172, 14);'>Cerrar sesion</a>"); } 
+              if ($_SESSION['auten'] == 1){  print("<a class='btn btn-primary' href='funtions/logout.php' role='button' style='background: rgb(211, 172, 14);'>Cerrar sesion</a>"); } 
               else{  print("<a class='btn btn-primary' href='sesion.php' role='button' style='background: rgb(211, 172, 14);'>Inicio/Registro</a>"); }
             ?>
           </div>
@@ -71,7 +83,7 @@
     </div>
 
     <!-- Cuerpo de la pagina -->
-    <div style="margin-left: 15%; margin-right: 15%; box-shadow: 0px 0px 50px #000;">
+    <div style="margin-left: 15%; margin-right: 15%; box-shadow: 0px 0px 150px rgb(211, 172, 14);">
 
         <!-- Carrusel -->
         <div id="carouselExampleCaptions" class="carousel slide" data-bs-ride="false" style="height: 300px;">
@@ -112,25 +124,48 @@
           </div>
 
         <!-- Contenido -->
-        <dl class="row" style="margin-left: 10%; margin-right: 10%;">
-            <dt class="col-md-6"><img  id="imagen_facultades" style="width:100%;"  src="https://img1.wsimg.com/isteam/ip/8d6c24da-4875-44c5-a47b-0068c8284fef/56eba67d-211a-4ac0-a6be-c7b7a35e3283.JPG/:/cr=t:0%25,l:0%25,w:100%25,h:100%25/rs=w:1300,h:800" alt="Facultad x"></dt>
-            <dd class="col-md-6">
-                <h5> <b>SAN GIL.</b> </h5>
-                <h6>valor: 80.000$</h6>
-                <p>
-                  por la vía a Charalá, despues de la universidad Unisangil; tenemos una super estructura construida exclusivamente para la practica 100% del Bungee Jumping, saltando 70 metros de caida libre sobre agua a la mitad del río Fonce por donde se desciende el canotaje.
-                </p>
-            </dd>
 
-            <dt class="col-md-6"><img  id="imagen_facultades" style="width:100%;"  src="https://i0.wp.com/xplorercolombia.com/sangil/wp-content/uploads/2021/05/BUNGEE-jumping-sangil.jpg?fit=1798%2C1200&ssl=1" alt="Facultad x"></dt>
-            <dd class="col-md-6">
-                <h5> <b>Ingenieria de telecomunicaciones.</b> </h5>
-                <h6>valor: 75.000$</h6>
-                <p>
-                  A dos horas de Bogota, a 30 minutos de Tunja y a 15 minutos del Puente de Boyaca, se encuentra un bello escenario natural, el antiguo puente férreo conocido como " El Puenton "  un clásico puente en piedra con 40 metros de altura que pondrán a prueba TODOS tus sentidos.
-                </p>
-            </dd>
-        </dl>
+        <div style="margin:10%;">
+          <script type="text/javaScript">
+            var x = <?php echo $_SESSION['admin'] ?>;
+            if (x===1){
+              document.write("<div style='border:2px solid yellow;margin-left: 10%;margin-right: 10%; box-shadow: 0px 0px 50px rgb(211, 172, 14);' >");
+              document.write("<form action='funtions/add_bungee.php' method='post' style='margin: 5%;'>");
+              document.write("<CENTER><h5>AGREGAR NUEVO EVENTO.</h5></CENTER> ");
+              document.write("<p>Link imagen: <input type='text' id='_link' name='_link' ></p>");
+              document.write("<p>lugar: <input type='text' id='_lugar' name='_lugar' ></p>");
+              document.write("<p>valor: <input type='text' id='_valor' name='_valor'></p>");
+              document.write("<p>contenido: <input type='text' id='contenido' name='contenido' style='width: 80%; height: 20px'></p>");
+              document.write("<center><input class='btn btn-primary' id='reg' type='submit' value='añadir' style='margin-top: 10%;'></center> ");
+              document.write("</form>");
+              document.write("</div>");
+            }
+            
+          </script>
+
+          <!-- LECTURA DE ARCHIVO/EVENTOS -->
+          <?php
+
+            $servidor = mysqli_connect("localhost", "root", "");
+            mysqli_select_db($servidor,"parapentes");
+            $consulta = "SELECT * FROM bungee";
+            $respuesta = mysqli_query($servidor, $consulta);
+
+            while( $lugar = mysqli_fetch_assoc($respuesta) ){
+              print( "<div>" );
+              print( "<dl class='row'>" );
+              print( "<dt class='col-md-6'><img  id='parapente_1' style='width:100%;'  src='".$lugar['link']."' alt='Facultad x'></dt>" ); 
+              print( "<dd class='col-md-6'>" );
+              print( "<h5> <b>".$lugar['lugar']."</b> </h5>" );
+              print( "<p>".$lugar['valor']."<br>" );
+              print( $lugar['contenido']."<br></p>" );
+              print( "</dd>" );
+              print( "</dl>" );
+              print( "</div>" );
+            }
+          ?>
+        </div>
+        
 
         <!-- PIE DE PAGINA -->
         <footer class="text-center text-lg-start text-muted" style="background-color: rgb(210, 210, 210)">

@@ -1,9 +1,18 @@
 <?php
-  $file = fopen("sesion.txt", "r");
+  error_reporting(0);
+  error_reporting(E_ERROR );
+  session_start();
+
+  $file = fopen("funtions/sesion.txt", "r");
   if ( fgets($file) == "1"){
     $_SESSION['auten']=1;
   }else{
     $_SESSION['auten']=0;
+  }
+  if ( fgets($file) == "1"){
+    $_SESSION['admin']=1;
+  }else{
+    $_SESSION['admin']=0;
   }
   fclose($file);
 ?>
@@ -53,9 +62,12 @@
                     <li><a class="dropdown-item" href="#">Something else here</a></li>
                     </ul>
                 </li>
+                <li class="nav-item">
+                  <button type='button' class='btn btn-primary'><?php print($_SESSION['nick']); ?> </button>
+                </li>
                 </ul>
                 <?php
-                  if ($_SESSION['auten'] == 1){  print("<a class='btn btn-primary' href='logout.php' role='button' style='background: rgb(211, 172, 14);'>Cerrar sesion</a>"); } 
+                  if ($_SESSION['auten'] == 1){  print("<a class='btn btn-primary' href='funtions/logout.php' role='button' style='background: rgb(211, 172, 14);'>Cerrar sesion</a>"); } 
                   else{  print("<a class='btn btn-primary' href='sesion.php' role='button' style='background: rgb(211, 172, 14);'>Inicio/Registro</a>"); }
                 ?>
             </div>
@@ -63,7 +75,7 @@
         </nav>
     </div>
 
-    <div class="Cuerpo" style="margin-left: 15%; margin-right: 15%; box-shadow: 0px 0px 50px #000">
+    <div class="Cuerpo" style="margin-left: 15%; margin-right: 15%; box-shadow: 0px 0px 150px rgb(211, 172, 14);">
         <div id="carouselExampleControls" class="carousel slide" data-bs-ride="carousel">
             <div class="carousel-inner" style="height: 200px;">
                 <div class="carousel-item active">

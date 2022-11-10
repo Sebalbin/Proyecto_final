@@ -18,8 +18,8 @@ if ($auten){
 
     $_SESSION['nick'] = $_POST['nick'];
     $_SESSION['auten'] = 1;
-    // $_SESSION['admin'] = $_POST['admin'];
-    header( "Location: index.php" );
+    $_SESSION['admin'] = $_POST['admin'];
+    header( "Location: ../index.php" );
 
     // creacion de archivo para verificar sesion
     $file = fopen("sesion.txt", "w");
@@ -28,7 +28,7 @@ if ($auten){
     fclose($file);
 }
 else{
-    header( "Location: index.php" );
+    header( "Location: ../index.php" );
 }
 
 ?>
